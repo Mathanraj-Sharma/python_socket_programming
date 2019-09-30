@@ -6,6 +6,7 @@ import socket
 
 soc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server = 'www.google.com'
+server_ip = socket.gethostbyname(server)
 
 def port_scan(server, port):
 	"""
@@ -13,7 +14,7 @@ def port_scan(server, port):
 	and return whether that port number is open(True) or close(False)
 	"""
 	try:
-		soc.connect(server, port)
+		soc.connect((server, port))
 		return True
 	except:
 		return False
@@ -21,8 +22,8 @@ def port_scan(server, port):
 
 if __name__ == '__main__':
 	
-	for port in range(1, 26):
-		if port_scan(server, port):
+	for port in range(1, 25):
+		if port_scan(server_ip, port):
 			print(f'Port {port} is open')
 		else:
 			print(f'Port {port} is closed')
